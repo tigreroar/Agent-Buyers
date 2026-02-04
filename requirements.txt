@@ -1,0 +1,8 @@
+streamlit
+google-generativeai
+pandas
+python-dotenv
+fpdf
+duckduckgo_search
+pillow
+requests
