@@ -3,6 +3,7 @@ google-generativeai
 pandas
 python-dotenv
 fpdf
-duckduckgo_search
+duckduckgo-search
+pypdf
 pillow
 requests
