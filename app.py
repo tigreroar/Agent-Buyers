@@ -126,7 +126,7 @@ if selected_agent == "Hal":
                         role = "user" if m["role"] == "user" else "model"
                         history_for_gemini.append({"role": role, "parts": [m["content"]]})
 
-                    model = genai.GenerativeModel('gemini-2.0-flash', system_instruction=HAL_SYSTEM_PROMPT)
+                    model = genai.GenerativeModel('gemini-2.5-flash', system_instruction=HAL_SYSTEM_PROMPT)
                     response = model.generate_content(history_for_gemini[:-1] + [{"role": "user", "parts": [final_prompt]}])
                     response_text = response.text
                     
@@ -167,7 +167,7 @@ elif selected_agent == "Carmen":
     with tab1:
         if st.button("▶️ Run Mock Demo"):
             with st.spinner("Generating sample credit analysis..."):
-                model = genai.GenerativeModel('gemini-2.0-flash', system_instruction=CARMEN_SYSTEM_PROMPT)
+                model = genai.GenerativeModel('gemini-2.5-flash', system_instruction=CARMEN_SYSTEM_PROMPT)
                 prompt = "Generate the Mock Demo Presentation."
                 response = model.generate_content(prompt)
                 st.markdown(response.text)
@@ -179,7 +179,7 @@ elif selected_agent == "Carmen":
                 st.error("Please paste a valid credit report text.")
             else:
                 with st.spinner("Carmen is analyzing..."):
-                    model = genai.GenerativeModel('gemini-2.0-flash', system_instruction=CARMEN_SYSTEM_PROMPT)
+                    model = genai.GenerativeModel('gemini-2.5-flash', system_instruction=CARMEN_SYSTEM_PROMPT)
                     response = model.generate_content(f"Analyze this credit report:\n\n{user_report_text}")
                     st.markdown(response.text)
 
@@ -214,11 +214,12 @@ elif selected_agent == "Lexy":
                 DATA: {web_results}
                 OUTPUT FORMAT: Strict Report with DISC tendencies and Persuasion Strategies.
                 """
-                model = genai.GenerativeModel('gemini-2.0-flash')
+                model = genai.GenerativeModel('gemini-2.5-flash')
                 response = model.generate_content(LEXY_SYSTEM_PROMPT)
                 report_text = response.text
                 
                 st.markdown("---")
                 st.markdown(report_text)
                 pdf_bytes = create_lexy_pdf(report_text, client_name)
+
                 st.download_button("📥 Download Intelligence Report (PDF)", pdf_bytes, f"Profile_{client_name}.pdf", "application/pdf")
